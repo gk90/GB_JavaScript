@@ -1,0 +1,23 @@
+<!-- Задача 1. 
+Программа спрашивает у пользователя температуру в градусах по Цельсию 
+(используем prompt чтобы ее получить). Используя alert программа выводит 
+данную температуру в градусах по Фаренгейту.
+-->
+<meta charset="utf-8">
+<script>
+"use strict";
+
+/**
+* Конвертирует градусы по Цельсию в градусы по Фаренгейту.
+* @param {int} celsius Значение градусов по Цельсию, которое конвертируем.
+* @return {int} Результат конвертации.   
+*/
+function convertTemp(celsius) {
+  let farenheit = (9 / 5) * celsius + 32;
+  return farenheit;
+}
+
+let userCelsiusTemp = +prompt('Укажите температуру в градусах по Цельсию:');
+
+alert(`${userCelsiusTemp}\u2103 = ${convertTemp(userCelsiusTemp)}\u2109`);
+</script>
