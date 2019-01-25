@@ -1,0 +1,44 @@
+<!-- Задача 5:
+Пользователь, с помощью команды prompt, вводит номер билета - 6 цифр. 
+Программа определяет является ли счастливым данный билетик и выводит соответстующее 
+сообщение в консоль. Счастливый билет - билет, у которого сумма первых трех цифр равна 
+сумме последних трех цифр номера билета. Для выполнения задания необходимо использовать 
+оператор % и ветвление.
+-->
+<meta charset="utf-8">
+<script>
+"use strict"
+
+/**
+ * Определяет выигрышный билет, если сумма первых трех цифр равна 
+ * сумме последних трех цифр номера билета.
+ * @param {int} ticket номер билета.
+ * @return {} вывод сообщения о победе или поражении.   
+ */
+function winnerTicket(ticket) {
+  let lastNumber;
+  let sumOfRightNums = 0;
+  let sumOfLeftNums = 0;
+
+  for (let i = 1; i <= 6; i++) {
+    lastNumber = ticket % 10;
+
+    if (i <= 3) {
+      sumOfRightNums += lastNumber;
+    } else {
+      sumOfLeftNums += lastNumber;
+    }
+
+    ticket = parseInt(ticket / 10);
+  }
+
+  if (sumOfLeftNums === sumOfRightNums) {
+    return alert('У Вас Счастливый билет!');
+  } else {
+    return alert('Повезет в следующий раз!');
+  }
+}
+
+let ticket = +prompt('Введите номер из 6 цифр:');
+winnerTicket(ticket);
+</script>
