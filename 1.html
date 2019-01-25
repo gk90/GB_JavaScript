@@ -13,8 +13,7 @@
 * @return {int} Результат конвертации.   
 */
 function convertTemp(celsius) {
-  let farenheit = (9 / 5) * celsius + 32;
-  return farenheit;
+  return Math.floor(9 / 5 * celsius + 32);
 }
 
 let userCelsiusTemp = +prompt('Укажите температуру в градусах по Цельсию:');
