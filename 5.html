@@ -16,9 +16,10 @@ function mathOperation(arg1, arg2, operation),
 
   /**
    * Выбирает арифметическое действие над двумя операндами
-   * @arg1 {number} Число, первый операнд;
-   * @arg2 {number} Число, второй операнд;
-   * @return {number} Число, Результат выбранной функции;
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @param {string} operation, название операции;
+   * @return {number} результат арифметической операции;
    */
   function MathOperation(arg1, arg2, operation) {
     switch (operation) {
@@ -36,30 +37,38 @@ function mathOperation(arg1, arg2, operation),
   }
   /**
    * Производит сложение двух чисел:
-   * @arg1 {number} Число, первый операнд;
-   * @arg2 {number} Число, второй операнд;
-   * @return {number} Число, результат сложения.
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат сложения.
    */
-  function add(arg1, arg2) { return arg1 + arg2; }
+  function add(arg1, arg2) {
+    return arg1 + arg2;
+  }
   /**
    * Производит вычитание двух чисел:
-   * @arg1 {number} Число, первый операнд;
-   * @arg2 {number} Число, второй операнд;
-   * @return {number} Число, результат вычитания.
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат вычитания.
    */
-  function sub(arg1, arg2) { return arg1 - arg2; }
+  function sub(arg1, arg2) {
+    return arg1 - arg2;
+  }
   /**
    * Производит умножение двух чисел:
-   * @arg1 {number} Число, первый операнд;
-   * @arg2 {number} Число, второй операнд;
-   * @return {number} Число, результат умножения.
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат умножения.
    */
-  function mul(arg1, arg2) { return arg1 * arg2; }
+  function mul(arg1, arg2) {
+    return arg1 * arg2;
+  }
   /**
    * Производит деление двух чисел:
-   * @arg1 {number} Число, первый операнд;
-   * @arg2 {number} Число, второй операнд;
-   * @return {number} Число, Результат деления.
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат деления.
    */
-  function div(arg1, arg2) { return arg1 / arg2; }
+  function div(arg1, arg2) {
+    return arg1 / arg2;
+  }
 </script>

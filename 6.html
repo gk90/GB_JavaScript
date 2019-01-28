@@ -18,35 +18,34 @@
 <script>
   'use strict';
 
-  const dictionary = {
-   рубль: ['рубль', 'рубля', 'рублей'],
-   доллар: ['доллар', 'доллара', 'долларов'],
-   доширак: ['доширак', 'доширака', 'дошираков'],
-  };
   let deposit = parseInt(prompt('Укажите сумму, которую хотите внести:'));
+  let word = rusEndings(deposit, ['рубль', 'рубля', 'рублей']);
 
-  alert (`Ваша сумма ${rusEndings(deposit, 'доллар', dictionary) } успешно зачислена.`);
+  alert (`Ваша сумма ${deposit} ${word} успешно зачислена.`);
 
-  /*
-  * Определяет склонение слова в зависимости от числительного.
-  * @money {int} Передаваемая в качестве аргумента сумма.
-  * @word {str} Строка, склоняемое слово.
-  * @dict {array} Объект, содержаший варианты склонений.
-  * @result {str} Строка, содержащая числительное и слово в правильном склонении;
-  * */
-  function rusEndings(money, word, dict) {
+  /**
+    * Определяет склонение слова в зависимости от числительного
+    * @param {int} numeral числительное;
+    * @param {array} word массив из 3-х строк со словом и вариантами склонения, в котором:
+    * первое слово в ед.ч им. падеже, второе - в ед.ч род. падеже, 
+    * третье - во мн.ч род. падеже;
+    * @return {string} слово в правильном склонении.
+  */
+  function rusEndings(numeral, word) {
+    const twoLastNums = numeral % 100;
+    const lastNum = twoLastNums % 10;
     // Диапазон допустимых чисел в блоке if:
     // числа оканчивающиеся на 1, кроме оканчивающихся на 11, включая 1, исключая 11.
-    if (money === 1 || (money !== 11 && money % 100 !== 11 && money % 10 === 1)) {
-      return `${money} ${dict[word][0]}`;
+    if (numeral === 1 || (numeral !== 11 && twoLastNums !== 11 && lastNum === 1)) {
+      return word[0];
     // Диапазон допустимых чисел в блоке else if:
     // все числа оканчивающиеся на 2...4, кроме оканчивающися на 12...14, включая 2...4, исключая 12...14
-    } else if ((money >= 2 && money <= 4) || (!( money >= 12 && money <= 14) &&
-              !(money % 100 >= 12 && money % 100 <= 14) && (money % 10 >= 2 && money % 10 <= 4))) {
-      return `${money} ${dict[word][1]}`;
+    } else if ((numeral >= 2 && numeral <= 4) || (!( numeral >= 12 && numeral <= 14) &&
+              !(twoLastNums >= 12 && twoLastNums <= 14) && (lastNum >= 2 && lastNum <= 4))) {
+      return word[1];
     // В блоке else все осталььные числа.
     } else {
-      return `${money} ${dict[word][2]}`;
+      return word[2];
     }
   }
 </script>
