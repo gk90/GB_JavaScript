@@ -1,0 +1,33 @@
+<!--
+Нарисовать горку с помощью console.log (используя цикл for), как показано на рисунке,
+только у вашей горки должно быть 20 рядов, а не 5:
+```
+x
+xxx
+xxxxx
+xxxxxxx
+xxxxxxxxx
+```
+-->
+<meta charset="UTF-8">
+<script>
+  "use strict";
+
+  let rows = 20;
+  drawRows(rows);
+
+  /**
+   * Функция выводит в консоль строку со следующим нечетным количеством символов.
+   * @param {int} rowQuantity количество рядов
+   * @param {string} symbol символ, default = 'x'
+   * @return {void}
+   * */
+  function drawRows(rowQuantity, symbol = 'x') {
+   let string = '';
+   for (let i = 0; i <= rowQuantity * 2; i++) {
+     i % 2 !== 0 ? console.log(string) : false;
+     string += symbol;
+   }
+  }
+
+</script>
