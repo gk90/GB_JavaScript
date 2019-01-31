@@ -7,7 +7,7 @@
 <script>
   "use strict";
 
-  let x = 101010;
+  let x = 100;
   primeNums(x);
   // primitivePrimeNums(x);
 
@@ -24,7 +24,11 @@
      }
      i++;
    }
-   while (i <= range && i / 2 !== 0) {
+   while (i <= range) {
+     if (i % 2 === 0 ) {
+       i++;
+       continue;
+     }
      let j = 2;
      while (j * j <= i) {
        if (i % j === 0) {
