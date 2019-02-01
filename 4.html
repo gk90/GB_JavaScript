@@ -1,0 +1,60 @@
+<!--
+Задание 4.
+С помощью цикла while вывести все простые числа
+в промежутке от 0 до 100 (можно без оптимизаций).
+-->
+<meta charset="UTF-8">
+<script>
+  "use strict";
+
+  let x = 100000;
+  primeNumsInRange(x);
+
+  /**
+   * Функция выводит простые числа в указанном диапазоне.
+   * @param {int} range диапазон
+   * @return {void}
+   * */
+  function primeNumsInRange(range) {
+   let i = 0;
+   while (i <= range) {
+     if (i <= 3) {
+       if (i === 2 || i === 3) {
+         console.log(i);
+       }
+     } else if (i % 2 !== 0) {
+       isPrimeNum(i);
+     }
+     i++;
+   }
+  }
+
+  function isPrimeNum(num) {
+    let i = 2;
+    while (i * i <= num) {
+      if (num % i === 0 ) {
+        return false;
+      }
+      i++;
+    }
+      return console.log(num);
+  }
+
+  //  function primitivePrimeNums(range) {
+  //  let i = 2;
+  //  while (i <= range) {
+  //    let j = i - 1;
+  //    while (j >= 1) {
+  //      if (j === 1) {
+  //        console.log(i);
+  //      } else if (i % j === 0) {
+  //        break;
+  //      }
+  //      j--;
+  //    }
+  //    i++;
+  //  }
+  // }
+
+
+</script>

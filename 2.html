@@ -1,0 +1,25 @@
+<!--
+Задание 2.
+2. Вывести с помощью цикла for числа от 0 до 9,
+НЕ используя тело цикла. То есть выглядеть должно вот так:
+```
+for(…){/* здесь пусто */}
+```
+-->
+<meta charset="UTF-8">
+<script>
+  "use strict";
+
+  /**
+   * Функция выводит в консоль положительные числа.
+   * @param {int} numRange верхняя граница до которого выводятся числа (не включитель)
+   * @return {void}
+   * */
+  const numsToRange = numRange => {
+    for (let i = 0; i < numRange; console.log(i++)) {}
+  };
+
+  let num = 10;
+  numsToRange(num);
+
+</script>
