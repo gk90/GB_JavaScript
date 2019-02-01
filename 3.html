@@ -25,7 +25,9 @@ xxxxxxxxx
   function drawRows(rowQuantity, symbol = 'x') {
    let string = '';
    for (let i = 0; i <= rowQuantity * 2; i++) {
-     i % 2 !== 0 ? console.log(string) : false;
+     if (i % 2 !== 0) {
+       console.log(string);
+     }
      string += symbol;
    }
   }

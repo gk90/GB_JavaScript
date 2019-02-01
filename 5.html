@@ -27,26 +27,25 @@ const arr = [
 
   let minValueInArrWithMaxSum = minNumInArr(arr[arrWithMaxSum(arr)]);
 
-  console.log(minValueInArrWithMaxSum);
-
   /**
    * Ищет массив с наибольшей суммой
    * @param {array} arr массив массивов чисел
    * @return {int} число - индекс массива 
    * */
   function arrWithMaxSum(arr){
-    let max_sum = 0;
+    let max_sum = -Infinity;
     let index = 0;
     for (let i in arr) {
       let sum = 0;
       for (let j of arr[i]) {
         sum += j;
       }
-      if (sum > max_sum) {
+      if (max_sum < sum) {
         max_sum = sum;
         index = +i; // неявное преобразование в строку
       }
     }
+    console.log(`Индекс массива с наибольшей суммой ${index} - ${arr[index]}`);
     return index;
   }
 
@@ -62,7 +61,8 @@ const arr = [
         value = i;
       }
     }
-    return value
+    console.log(`Наименьшее число в массиве ${arr} - ${value}`);
+    return value;
   }
   // function minNumInArr(arr){
   //  let value = 0;
