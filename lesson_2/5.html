@@ -1,0 +1,74 @@
+<!--
+Задание 5.
+Реализовать функцию с тремя параметрами:
+function mathOperation(arg1, arg2, operation),
+где arg1, arg2 – значения аргументов, operation
+– строка с названием операции. В зависимости от
+переданного значения операции (использовать switch)
+выполнить одну из арифметических операций
+(использовать функции из задания 4) и вернуть полученное значение.
+-->
+<meta charset="UTF-8">
+<script>
+  'use strict';
+
+  alert(MathOperation(45, 56, 'add'));
+
+  /**
+   * Выбирает арифметическое действие над двумя операндами
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @param {string} operation, название операции;
+   * @return {number} результат арифметической операции;
+   */
+  function MathOperation(arg1, arg2, operation) {
+    switch (operation) {
+      case 'add':
+        return add(arg1, arg2);
+      case 'sub':
+        return sub(arg1, arg2);
+      case 'mul':
+        return mul(arg1, arg2);
+      case 'div':
+        return div(arg1, arg2);
+      default:
+        alert('Недопустимая операция.')
+    }
+  }
+  /**
+   * Производит сложение двух чисел:
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат сложения.
+   */
+  function add(arg1, arg2) {
+    return arg1 + arg2;
+  }
+  /**
+   * Производит вычитание двух чисел:
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат вычитания.
+   */
+  function sub(arg1, arg2) {
+    return arg1 - arg2;
+  }
+  /**
+   * Производит умножение двух чисел:
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат умножения.
+   */
+  function mul(arg1, arg2) {
+    return arg1 * arg2;
+  }
+  /**
+   * Производит деление двух чисел:
+   * @param {number} arg1, первый операнд;
+   * @param {number} arg2, второй операнд;
+   * @return {number} результат деления.
+   */
+  function div(arg1, arg2) {
+    return arg1 / arg2;
+  }
+</script>
