@@ -139,7 +139,7 @@
     /**
      * Метод устанавливающий имя игрока.
      */
-    sayName(){
+    askName(){
       this.name = prompt('Как Вас зовут:');
     }
   };
@@ -212,7 +212,7 @@
      */
     init() {
       this.shuffleQuestions();
-      this.player.sayName();
+      this.player.askName();
 
       alert(`Приветсвуем ${this.player.name} в игре кто хочет стать миллионером!`);
     },
@@ -257,7 +257,7 @@
         let answer = prompt('Ваш ответ:');
 
         if (!answers.includes(answer)) {
-          alert(`Ваш можете ответить a, b, c, d. Для выхода из программы нажмите - q `);
+          alert(`Вы можете ответить a, b, c, d. Для выхода из программы нажмите - q `);
           continue;
         }
         return answer
@@ -279,8 +279,6 @@
      * @return {boolean} true если хочет продолжить
      * */
     wantQuit() {
-      let answers = ['y', 'n'];
-
       while (true) {
         let answer = prompt('Хотите продолжить? y/n');
 

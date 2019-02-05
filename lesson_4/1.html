@@ -23,7 +23,6 @@
 <meta charset="UTF-8">
 <script>
   "use strict";
-
   let x = numToArr(345);
 
   console.log(x);
@@ -34,13 +33,7 @@
    * если передан недопустимый аргумент, то вернет пустой объект
    * */
   function numToArr(num) {
-    if (
-      (typeof(num) === 'number') &&
-      (!isNaN(num)) &&
-      (Math.floor(num) === num) &&
-      (num >= 0 && num <= 999)
-    )
-    {
+    if (Number.isInteger(num)) {
       let obj = {
         firstDigit: 0,
         secondDigit: 0,
@@ -58,13 +51,7 @@
   }
 
   /*function reverseNumToArr(num) {
-    if (
-      (typeof(num) === 'number') &&
-      (!isNaN(num)) &&
-      (Math.floor(num) === num) &&
-      (num >= 0 && num <= 999)
-    )
-    {
+    if (Number.isInteger(num)) {
       let obj = {
         firstDigit: 0,
         secondDigit: 0,
