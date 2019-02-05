@@ -1,0 +1,303 @@
+<!--
+  3**. На базе игры (приняв за пример), созданной на уроке, реализовать игру «Кто хочет стать миллионером?».
+  Т.е. у вас должен быть главный объект содержащий всю логику игры, который будет иметь методы, например
+  метод run, возможно метод init и т.д.
+  В игре должны быть заранее подготовлены список вопросов и ответов (как минимум 5 вопросов).
+  Игра должна приветствовать пользователя, после чего задавать вопросы пользователю и предлагать варианты
+  ответов в виде теста, например:
+  Сколько букв в слове "привет":
+  a. Пять.
+  b. Шесть.
+  c. Семь.
+  d. Куда я попал?
+  Проверять правильный вариант выбрал пользователь или нет, необходимо вести счет.
+  По окончании игры, когда было задано 5 вопросов, вы должны сообщить пользователю его счет и предложить
+  сыграть снова.
+  Также должна быть возможность выхода из игры заранее, если пользователю надоело играть.
+-->
+<meta charset="UTF-8">
+<script>
+  "use strict";
+
+  /**
+   * Массив объектов с вопросами, ответами.
+   * @property {text} text вопрос.
+   * @property {answersVariants} answersVariants варианты ответов.
+   * @property {correctAnswer} correctAnswer правильный ответ.
+   */
+  const questions = [
+    {
+      text: 'Как правильно закончить пословицу: «Не откладывай на завтра то, что можно…»?',
+      answersVariants: [
+        'сделать сегодня',
+        'сделать послезавтра',
+        'сделать через месяц',
+        'никогда не делать'
+      ],
+      correctAnswer: 'a'
+    },
+    {
+      text: 'Что говорит человек, когда замечает нечто необычное?',
+      answersVariants: [
+        'попало в лоб',
+        'залетело в рот',
+        'накапало в уши',
+        'бросилось в глаза'],
+      correctAnswer: 'd'
+    },
+    {
+      text: 'Что помогает туристу ориентироваться в незнакомом городе?',
+      answersVariants: [
+        'путепровод',
+        'путеукладчик',
+        'путеводитель',
+        'путеводная звезда'
+      ],
+      correctAnswer: 'c'
+    },
+    {
+      text: 'Какой наряд прославил баснописец Крылов?',
+      answersVariants: [
+        'тришкин кафтан',
+        'ивашкин армяк',
+        'прошкин зипун',
+        'машкин сарафан'
+      ],
+      correctAnswer: 'a'
+    },
+    {
+      text: 'Как звали старшую сестру императора Петра Первого?',
+      answersVariants: [
+        'Вера',
+        'Надежда',
+        'Любовь',
+        'Софья'
+      ],
+      correctAnswer: 'd'
+    },
+    {
+      text: 'Что не бывает морским?',
+      answersVariants: [
+        'рельс',
+        'огурец',
+        'гребешок',
+        'узел'
+      ],
+      correctAnswer: 'a'
+    },
+    {
+      text: 'Кого с большим основанием можно назвать островитянами?',
+      answersVariants: [
+        'алеутов',
+        'эвенков',
+        'чукчей',
+        'якутов'
+      ],
+      correctAnswer: 'a'
+    },
+    {
+      text: 'В какой стране появилась мандолина?',
+      answersVariants: [
+        'Испания',
+        'Италия',
+        'Венгрия',
+        'Греция'
+      ],
+      correctAnswer: 'b'
+    },
+    {
+      text: 'Как жители Лондона прозвали небоскреб Мэри-Экс, спроектированный Норманом Фостером?',
+      answersVariants: [
+        '«корнишон»',
+        '«баклажан»',
+        '«кабачок»',
+        '«патиссон»'
+      ],
+      correctAnswer: 'a'
+    },
+    {
+      text: 'Какой врач первым в истории русской медицины применил гипсовую повязку?',
+      answersVariants: [
+        'Субботин',
+        'Пирогов',
+        'Боткин',
+        'Склифосовский'
+      ],
+      correctAnswer: 'b'
+    },
+  ];
+
+  /**
+   * Объект игрок, здесь находятся свойства и методы связанные с игроком.
+   * @property {name} name имя игрока.
+   * @property {money} money количество денег.
+   */
+  const player = {
+    name: null,
+    money: null,
+
+    /**
+     * Метод устанавливающий имя игрока.
+     */
+    askName(){
+      this.name = prompt('Как Вас зовут:');
+    }
+  };
+
+  /**
+   * Объект игры, здесь будут все методы и свойства связанные с самой игрой в общем.
+   * @property {questions} questions Вопросы.
+   * @property {player} player Игрок, участвующий в игре.
+   * @property {askedQuestions} askedQuestions количество заданных вопросов.
+   * @property {moneyPull} moneyPull массив значений выигрыша.
+   */
+  const game = {
+    questions,
+    player,
+    askedQuestions: 0,
+    moneyPull: [
+      500, 1000, 2000, 3000, 5000, 10000, 15000, 25000, 50000,
+      100000, 200000, 400000, 800000, 1500000, 3000000
+    ],
+
+    /**
+     * Запускает игру.
+     */
+    run() {
+      // Инициализация игрока, перемешивание вопросов.
+      this.init();
+
+      while (true) {
+        // Задаем вопрос
+        this.askQuestion();
+        // увеличиваем количество заданных вопросов
+        this.askedQuestions++;
+        // получаем ответ игрока
+        let answer = this.getAnswer();
+
+        if (answer === 'q') {
+          alert('До свидания!');
+          break;
+        }
+        // проверяем ответ
+        let result = this.validateAnswer(answer);
+        // Если результат true добавляем деньги игроку, иначе обнуляем счет и выходим из игры
+        if (result) {
+          this.giveMoney();
+          alert(`Вы выиграли ${this.player.money}`);
+        } else {
+          alert('Не верно!');
+          this.player.money = 0;
+          break;
+        }
+
+        // удаляем нулевое значение из массива вопросов
+        this.questions.shift();
+        console.clear();
+
+        // спрашиваем игрока о желании продолжить после 5 заданных вопросов
+        if (this.askedQuestions % 5 === 0) {
+          console.log(`Вы отгадали ${this.askedQuestions} вопросов и выиграли ${this.player.money} рублей.`);
+          // выход из игры при отказе игрока продолжить игру
+          if (!this.wantQuit()) {
+            alert('До свидания!');
+            break;
+          }
+        }
+      }
+    },
+
+    /**
+     * Вызываем перемешивание вопросов, инициализируем игрока, выводим приветствие.
+     */
+    init() {
+      this.shuffleQuestions();
+      this.player.askName();
+
+      alert(`Приветсвуем ${this.player.name} в игре кто хочет стать миллионером!`);
+    },
+
+    /**
+     * Перемешивает вопросы.
+     */
+    shuffleQuestions() {
+      let arr = this.questions;
+      for (let i = 0; i <= arr.length - 1; i++) {
+        let randomInt = Math.floor(Math.random() * arr.length);
+        let temp = null;
+        temp = arr[randomInt];
+        arr[randomInt] = arr[i];
+        arr[i] = temp;
+      }
+    },
+
+    /**
+     * Выводит на экран вопрос.
+     */
+    askQuestion() {
+      let letters = ['a', 'b', 'c', 'd'];
+      const question = this.questions[0];
+
+      console.log(`Вопрос № ${this.askedQuestions}`);
+      console.log(`${question.text}`);
+      console.log(`Варианты ответов:`);
+
+      for (let i in question.answersVariants) {
+        console.log(`${letters[i]} - ${question.answersVariants[i]}`);
+      }
+    },
+
+    /**
+     * Проверяем допустимость ввода.
+     */
+    getAnswer() {
+      let answers = ['q', 'a', 'b', 'c', 'd'];
+
+      while (true) {
+        let answer = prompt('Ваш ответ:');
+
+        if (!answers.includes(answer)) {
+          alert(`Вы можете ответить a, b, c, d. Для выхода из программы нажмите - q `);
+          continue;
+        }
+        return answer
+      }
+    },
+
+    /**
+     * Проверяет ответ и значение правильного ответа.
+     * @param {string} answer ответ игрока
+     * @return {boolean} возвражает true если ответ правильный
+     */
+    validateAnswer(answer) {
+      let question = this.questions[0];
+      return question.correctAnswer === answer;
+    },
+
+    /**
+     * Предлагает игроку продолжить игру или отказаться
+     * @return {boolean} true если хочет продолжить
+     * */
+    wantQuit() {
+      while (true) {
+        let answer = prompt('Хотите продолжить? y/n');
+
+        if (answer === 'y') {
+          return true;
+        } else if (answer === 'n') {
+          return false;
+        }
+      }
+    },
+
+    /**
+     * Начисляет деньги игроку, по индексу от количества заданных вопросов
+     */
+    giveMoney() {
+      let index = this.askedQuestions;
+      this.player.money = this.moneyPull[index - 1];
+    },
+  };
+
+  game.run();
+</script>

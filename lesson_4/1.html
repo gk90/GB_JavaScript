@@ -1,0 +1,69 @@
+<!--
+  Задание 1:
+  1. Написать функцию, преобразующую число в объект.
+  Передавая на вход число в диапазоне [0, 999],
+  мы должны получить на выходе объект, в котором
+  в соответствующих свойствах описаны разряды числа:
+  - единицы (в свойстве firstDigit)
+  - десятки (в свойстве secondDigit)
+  - сотни (в свойстве thirdDigit)
+  Например, для числа 45 мы должны получить следующий объект:
+
+  {
+  firstDigit: 5,
+  secondDigit: 4,
+  thirdDigit: 0,
+  }
+
+  Если число было передано вне [0, 999] диапазона,
+  не целое число или вообще не число,
+  необходимо выдать соответствующее сообщение с помощью
+  console.log и вернуть пустой объект.
+-->
+<meta charset="UTF-8">
+<script>
+  "use strict";
+  let x = numToArr(345);
+
+  console.log(x);
+  /**
+   * Функция преобразует число в объект.
+   * @param {int} num положительное трехзначное число
+   * @return {object} возвращает объект,
+   * если передан недопустимый аргумент, то вернет пустой объект
+   * */
+  function numToArr(num) {
+    if (Number.isInteger(num)) {
+      let obj = {
+        firstDigit: 0,
+        secondDigit: 0,
+        thirdDigit: 0,
+      };
+
+      for (let i in obj) {
+        obj[i] = num % 10;
+        num = Math.floor(num / 10);
+      }
+      return obj;
+    }
+    console.log('Передан недопустимый аргумент');
+    return {};
+  }
+
+  /*function reverseNumToArr(num) {
+    if (Number.isInteger(num)) {
+      let obj = {
+        firstDigit: 0,
+        secondDigit: 0,
+        thirdDigit: 0,
+      };
+      for (let i in obj) {
+        obj[i] = Math.floor(num / 100) % 10;
+        num = num * 10;
+      }
+      return obj;
+    }
+    console.log('Передан недопустимый аргумент');
+    return {};
+  }*/
+</script>
