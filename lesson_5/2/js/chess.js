@@ -13,62 +13,62 @@
  */
 const chessFigures = [
   {
-    figure: '♟',
+    figure: '♙',
     position: ['A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2' ],
     color: 'black'
   },
   {
-    figure: '♜',
+    figure: '♖',
     position: ['A1', 'H1'],
     color: 'black'
   },
   {
-    figure: '♞',
+    figure: '♘',
     position: ['B1', 'G1'],
     color: 'black'
   },
   {
-    figure: '♝',
+    figure: '♗',
     position: ['C1', 'F1'],
     color: 'black'
   },
   {
-    figure: '♛',
+    figure: '♕',
     position: ['E1'],
     color: 'black'
   },
   {
-    figure: '♚',
+    figure: '♔',
     position: ['D1'],
     color: 'black'
   },
   {
-    figure: '♙',
+    figure: '♟',
     position: ['A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7' ],
     color: 'white'
   },
   {
-    figure: '♖',
+    figure: '♜',
     position: ['A8', 'H8'],
     color: 'white'
   },
   {
-    figure: '♘',
+    figure: '♞',
     position: ['B8', 'G8'],
     color: 'black'
   },
   {
-    figure: '♗',
+    figure: '♝',
     position: ['C8', 'F8'],
     color: 'black'
   },
   {
-    figure: '♕',
+    figure: '♛',
     position: ['E8'],
     color: 'black'
   },
   {
-    figure: '♔',
+    figure: '♚',
     position: ['D8'],
     color: 'black'
   },
@@ -85,7 +85,7 @@ const chessBoard = {
   container: document.getElementById('chess'),
   rows: 10,
   cols: 10,
-  letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+  letters: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
 
   /**
    * функция инициализацирует остальные методы объекта
@@ -164,6 +164,7 @@ const game = {
             // условие для размещения фигуры
             if (cell.getAttribute('data-position') === position) {
               cell.textContent = figure.figure;
+              break;
             }
           }
         }

@@ -20,7 +20,7 @@ const chessBoard = {
    * функция отрисовывает игровое поле
    */
   drawBoard() {
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
     // цикл для генерации рядов
     for (let i = 0; i < this.rows; i++) {
@@ -32,16 +32,12 @@ const chessBoard = {
         tr.appendChild(td);
 
         // ветвления для генерации неигровых ячеек
-        if (i > 0 && i < this.rows - 1) {
-          if (j === 0 || j === this.cols - 1) {
+        if ((i > 0 && i < this.rows - 1) && (j === 0 || j === this.cols - 1)) {
             td.textContent = this.rows - 1 - i;
             continue;
-          }
-        } else {
-          if (j !== 0 || j !== this.cols - 1) {
+        } else if ((i === 0 || i === this.rows - 1) &&(j !== 0 || j !== this.cols - 1)) {
             td.textContent = letters[j - 1];
             continue;
-          }
         }
 
         // определяем должна ли закрашиваться ячейка

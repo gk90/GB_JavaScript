@@ -35,7 +35,7 @@ const validation = {
    * */
   run() {
     // устанавливаем обработчик событий.
-    this.form.addEventListener('click', this.handler);
+    this.form.addEventListener('click', (event) => this.handler(event));
   },
 
   /**
@@ -53,27 +53,27 @@ const validation = {
       // цикл по выбранным элементам
       for (let input of inputs) {
         // очистка выведенных ошибок (вынесена для избегания повторений)
-        validation.clearError(input);
+        this.clearError(input);
         // ветвления на значения атрибутов
         switch (input.name) {
           case 'name':
-            isName = validation.nameValidator(input);
+            isName = this.nameValidator(input);
             break;
           case 'phoneNumber':
-            isPhone = validation.phoneValidator(input);
+            isPhone = this.phoneValidator(input);
             break;
           case 'password1':
             password = input.value;
-            isPass1 = validation.password1Validator(input);
+            isPass1 = this.password1Validator(input);
             break;
           case 'password2':
-            isPass2 = validation.password2Validator(input, password);
+            isPass2 = this.password2Validator(input, password);
             break;
         }
       }
       // отправляем форму, если валидация успешна
       if (isName && isPhone && isPass1 && isPass2) {
-        validation.form.submit()
+        this.form.submit()
       }
     }
   },
@@ -105,7 +105,7 @@ const validation = {
    * */
   phoneValidator(input) {
     const error = 'Номер должен состоять из 11 цифр';
-    if (input.value.length !== 11 || isNaN(+input.value)) {
+    if (input.value.length !== 11 || +input.value < 0 || !Number.isInteger(+input.value)) {
       input.style.borderColor = 'red';
       this.showError(error, input);
       return false;
