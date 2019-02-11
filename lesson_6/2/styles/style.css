@@ -1,0 +1,24 @@
+h1 {
+  font-size: 15px;
+}
+
+img {
+  height: 150px;
+  width: 200px;
+}
+
+.container-fluid {
+  margin-top: 20px;
+}
+
+.product {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.right-column {
+  display: flex;
+  align-items: flex-end;
+}
+
