@@ -14,11 +14,11 @@
  * @property {string} settings.openedImageCloseBtnClass Класс для картинки кнопки закрыть.
  * @property {string} settings.openedImageCloseBtnSrc Путь до картинки кнопки открыть.
  * @property {string} settings.errorImageSrc Путь до картики при ошибке открытия увеличенной картинки.
- * @property {null|Node} settings.openedImageEl открытая картинка.
  * @property {string} settings.toPrevImg Класс для картинки прокрутить назад.
  * @property {string} settings.toPrevImgSrc Путь до картинки пркрутить назад.
  * @property {string} settings.toNextImg Класс для картинки прокрутить вперед.
  * @property {string} settings.toNextImgSrc Путь до картинки прокрутить вперел.
+ * @property {null|Node} openedImageEl открытая картинка.
  */
 const gallery = {
   settings: {
@@ -29,12 +29,12 @@ const gallery = {
     openedImageCloseBtnClass: 'galleryWrapper__close',
     openedImageCloseBtnSrc: 'images/gallery/close.png',
     errorImageSrc: 'images/error/error.jpg',
-    openedImageEl: null,
     toPrevImg: 'galleryWrapper__back',
     toPrevImgSrc: 'images/arrows/left.png',
     toNextImg: 'galleryWrapper__next',
     toNextImgSrc: 'images/arrows/right.png',
   },
+  openedImageEl: null,
 
   /**
    * Инициализирует галерею, ставит обработчик события.
@@ -63,7 +63,7 @@ const gallery = {
       return;
     }
     // Сохряняем элемент - открытую картинку.
-    this.settings.openedImageEl = event.target;
+    this.openedImageEl = event.target;
     // Открываем картинку с полученным из целевого тега (data-full_image_url аттрибут).
     this.openImage(event.target.dataset.full_image_url);
   },
@@ -126,14 +126,14 @@ const gallery = {
     leftArrow.classList.add(this.settings.toPrevImg);
     leftArrow.src = this.settings.toPrevImgSrc;
     galleryWrapperElement.appendChild(leftArrow);
-    leftArrow.addEventListener('click', () => this.getPrevImage());
+    leftArrow.addEventListener('click', () => this.setPrevImage());
 
     // Создаем картинку, для перехода к следующему изображению, ставим класс, src обработчик
     // и добавляем в контейнер-обертку
     const rightArrow = new Image();
     rightArrow.classList.add(this.settings.toNextImg);
     rightArrow.src = this.settings.toNextImgSrc;
-    rightArrow.addEventListener('click', () => this.getNextImage());
+    rightArrow.addEventListener('click', () => this.setNextImage());
     galleryWrapperElement.appendChild(rightArrow);
 
     // Добавляем контейнер-обертку в тег body.
@@ -160,58 +160,58 @@ const gallery = {
   /**
    * Открывает в контейнере-обертке следующую по расположению в HTML картинку.
    */
-  getNextImage() {
+  setNextImage() {
     // Получаем элемент - открытую картинку
     const image = document.
     querySelector(`.${this.settings.openedImageWrapperClass}`).
     querySelector(`.${this.settings.openedImageClass}`);
 
     // Получаем следующую по расположению в HTML картинку
-    const nextImage = this.settings.openedImageEl.nextElementSibling;
-    // Получаем контейнер в котором расположены картинки
-    const previewSelector = document.querySelector(`${this.settings.previewSelector}`);
+    const nextImage = this.openedImageEl.nextElementSibling;
 
     // Если получить следующий элемент возможно, то открытой картинке
     // присваевается src равный значению атрибута full_image_url следующей картинки,
     // openedImageEl присваевается следующая картинка.
     if (nextImage) {
-      image.src = nextImage.dataset.full_image_url;
-      this.settings.openedImageEl = nextImage;
+      this.openImage(nextImage.dataset.full_image_url);
+      this.openedImageEl = nextImage;
     // Если следующий элемент отсутствует, то открытой картинке
     // присваевается src равный значению атрибута full_image_url первой картинки в контейнере,
     // openedImageEl присваевается первая в контейнере картинка.
     } else {
-      image.src = previewSelector.firstElementChild.dataset.full_image_url;
-      this.settings.openedImageEl = previewSelector.firstElementChild;
+      // Получаем контейнер в котором расположены картинки
+      const previewSelector = document.querySelector(`${this.settings.previewSelector}`);
+      this.openImage(previewSelector.firstElementChild.dataset.full_image_url);
+      this.openedImageEl = previewSelector.firstElementChild;
     }
   },
 
   /**
    * Открывает в контейнере-обертке предыдущую по расположению в HTML картинку.
    */
-  getPrevImage() {
+  setPrevImage() {
     // Получаем элемент - открытую картинку
     const image = document.
     querySelector(`.${this.settings.openedImageWrapperClass}`).
     querySelector(`.${this.settings.openedImageClass}`);
 
     // Получаем предыдущую по расположению в HTML картинку
-    const previousImage = this.settings.openedImageEl.previousElementSibling;
-    // Получаем контейнер в котором расположены картинки
-    const previewSelector = document.querySelector(`${this.settings.previewSelector}`);
+    const previousImage = this.openedImageEl.previousElementSibling;
 
     // Если получить предыдущий элемент возможно, то открытой картинке
     // присваевается src равный значению атрибута full_image_url предыдущей картинки,
     // openedImageEl присваевается предыдущая картинка.
     if (previousImage) {
-      image.src = previousImage.dataset.full_image_url;
-      this.settings.openedImageEl = previousImage;
+      this.openImage(previousImage.dataset.full_image_url);
+      this.openedImageEl = previousImage;
     // Если предыдущий элемент отсутствует, то открытой картинке
     // присваевается src равный значению атрибута full_image_url последней картинки в контейнере,
     // openedImageEl присваевается последняя в контейнере картинка.
     } else {
-      image.src = previewSelector.lastElementChild.dataset.full_image_url;
-      this.settings.openedImageEl = previewSelector.lastElementChild;
+      // Получаем контейнер в котором расположены картинки
+      const previewSelector = document.querySelector(`${this.settings.previewSelector}`);
+      this.openImage(previewSelector.lastElementChild.dataset.full_image_url);
+      this.openedImageEl = previewSelector.lastElementChild;
     }
   }
 };
