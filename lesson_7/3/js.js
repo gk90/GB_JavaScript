@@ -197,11 +197,15 @@ const snake = {
    * Инициализирует змейку, откуда она будет начинать и ее направление.
    * @param {{x: int, y: int}[]} startBody Начальная позиция змейки.
    * @param {string} direction Начальное направление игрока.
+   * @param {int} maxX количество рядов
+   * @param {int} maxY количество колонок
    */
-  init(startBody, direction) {
+  init(startBody, direction, maxX, maxY) {
     this.body = startBody;
     this.direction = direction;
     this.lastStepDirection = direction;
+    this.maxX = maxX;
+    this.maxY = maxY;
   },
 
   /**
@@ -262,32 +266,16 @@ const snake = {
   getNextStepHeadPoint() {
     // Получаем в отдельную переменную голову змейки.
     const firstPoint = this.body[0];
-
-    // Условия для проверки пересечения границы.
-    if (firstPoint.x === this.maxX && this.direction === 'right') {
-      return {x: 0, y: firstPoint.y};
-
-    } else if (firstPoint.x === 0 && this.direction === 'left') {
-      return {x: this.maxX, y: firstPoint.y};
-
-    } else if (firstPoint.y === this.maxY && this.direction === 'down') {
-      return {x: firstPoint.x, y: 0};
-
-    } else if (firstPoint.y === 0 && this.direction === 'up') {
-      return {x: firstPoint.x, y: this.maxY};
-
-    } else {
-      // Возвращаем точку, где окажется голова змейки в зависимости от направления.
-      switch (this.direction) {
-        case 'up':
-          return {x: firstPoint.x, y: firstPoint.y - 1};
-        case 'right':
-          return {x: firstPoint.x + 1, y: firstPoint.y};
-        case 'down':
-          return {x: firstPoint.x, y: firstPoint.y + 1};
-        case 'left':
-          return {x: firstPoint.x - 1, y: firstPoint.y};
-      }
+    // Возвращаем точку, где окажется голова змейки в зависимости от направления.
+    switch (this.direction) {
+      case 'up':
+        return {x: firstPoint.x, y: firstPoint.y !== 0 ? firstPoint.y - 1 : this.maxY};
+      case 'right':
+        return {x: firstPoint.x !== this.maxX ? firstPoint.x + 1 : 0, y: firstPoint.y};
+      case 'down':
+        return {x: firstPoint.x, y: firstPoint.y !== this.maxY ? firstPoint.y + 1 : 0};
+      case 'left':
+        return {x: firstPoint.x !== 0 ? firstPoint.x - 1 : this.maxX, y: firstPoint.y};
     }
   },
 
@@ -298,16 +286,6 @@ const snake = {
   setDirection(direction) {
     this.direction = direction;
   },
-
-  /**
-   * Устанавливает значения нахождения границ.
-   * @param {int} x Количество rows,
-   * @param {int} y Количество cols.
-   */
-  setMaxCoordinates(x, y) {
-    this.maxX = x - 1;
-    this.maxY = y - 1;
-  }
 };
 
 /**
@@ -488,9 +466,12 @@ const game = {
     // Ставим статус игры в "остановлена".
     this.stop();
     // Инициализируем змейку.
-    this.snake.init(this.getStartSnakeBody(), 'up');
-    // Добавляем значения границ в объект змейка
-    this.snake.setMaxCoordinates(this.config.getRowsCount(), this.config.getColsCount());
+    this.snake.init(
+      this.getStartSnakeBody(),
+      'up',
+      this.config.getColsCount() - 1,
+      this.config.getRowsCount() - 1
+    );
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
     // Отображаем все что нужно для игры.

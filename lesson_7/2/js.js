@@ -457,6 +457,8 @@ const game = {
     this.snake.init(this.getStartSnakeBody(), 'up');
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
+    // Обнуляем очки.
+    this.score.drop();
     // Отображаем все что нужно для игры.
     this.render();
   },
